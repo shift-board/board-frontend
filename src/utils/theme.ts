@@ -14,14 +14,20 @@ export const theme = {
   },
   colors: {
     primary: '#323657',
-    contrast: '#EE923D',
+    accent: '#EE923D',
+    contrast: '#FFFFFF',
     overlay: '#F8F8F8',
     secondaryOverlay: '#E5E6EF59',
     text: {
       primary: '#000000DE',
-      bold: '#323657DE'
+      themed: '#323657DE',
+      contrast: '#FFFFFFDE',
     },
     dropshadow: '#00000040',
+  },
+  bodyWrapper: {
+    px: '10%',
+    py: '3%',
   },
   fontSizes: {
     mini: 10,
