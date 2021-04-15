@@ -13,6 +13,15 @@ export const theme = {
     body: 'Open Sans',
   },
   colors: {
+    primary: '#323657',
+    contrast: '#EE923D',
+    overlay: '#F8F8F8',
+    secondaryOverlay: '#E5E6EF59',
+    text: {
+      primary: '#000000DE',
+      bold: '#323657DE'
+    },
+    dropshadow: '#00000040',
   },
   fontSizes: {
     mini: 10,
