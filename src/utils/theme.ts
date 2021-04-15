@@ -28,6 +28,8 @@ export const theme = {
   bodyWrapper: {
     px: '10%',
     py: '3%',
+    mt: [0, '54px'],
+    mb: ['54px', 0],
   },
   fontSizes: {
     mini: 10,

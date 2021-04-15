@@ -1,7 +1,8 @@
 /** @jsx jsx */
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import {jsx, SxStyleProp} from 'theme-ui';
 import {Link} from 'react-router-dom';
+import {BsPlusCircleFill} from 'react-icons/bs';
 
 /**
  * This is the navigation bar that always stay at the top of the webpage for desktop views.
@@ -22,14 +23,20 @@ export const Navigation: React.FC = () => {
   // TODO: load the board's name from the server 
   const boardName = 'HOME';
 
+
+
   // The style of the navbar's main wrapper.
   const wrapperStyle: SxStyleProp = {
     height: '54px',
+    width: '100vw',
     px: '5%',
     color: 'primary',
     bg: 'primary',
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    position: 'fixed',
+    top: [undefined, 0],
+    bottom: [0, undefined],
   };
 
   // The style of one of the nav items.
@@ -55,8 +62,12 @@ export const Navigation: React.FC = () => {
 
   // The other navbar items.
   const navItems = useMemo(() => {
+    const addStyle: SxStyleProp = {
+      fontSize: 'large',
+    };
+
     const links = {
-      '/add-post': 'ADD',
+      '/add-post': <BsPlusCircleFill sx={addStyle}/>,
     };
 
     return Object.keys(links).map(key => {

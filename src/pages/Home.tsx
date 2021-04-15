@@ -21,9 +21,13 @@ import {jsx, SxStyleProp} from 'theme-ui';
  * @returns The home page. 
  */
 export const Home: React.FC = () => {
+  const wrapperStyle: SxStyleProp = {
+    variant: 'bodyWrapper',
+    height: '200vh',
+  };
 
   return (
-    <div>
+    <div sx={wrapperStyle}>
       This is the home page.
     </div>
   );
