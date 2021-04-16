@@ -4,7 +4,7 @@
  * For example:
  * ```
  * const style: SxStyleProp = {
- *   font: 'body', //will compile into 'Open Sans'
+ *   fontFamily: 'body', //will compile into 'Open Sans'
  * };
  * ```
  */

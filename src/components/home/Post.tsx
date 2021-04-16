@@ -19,9 +19,22 @@ interface PostProps {
 }
 
 /**
+ * A component representing a post. This is clickable on both desktop and mobile view
+ * and expands into a full popup.
  * 
+ * This is memoized because we do not want the component to re-render when the main board changes
+ * since requesting for the photo is pretty expensive.
  * 
- * Memoized because we do not want the component to re-render when the main board changes.
+ * Desktop view:
+ * - Spans a couple columns depending on the window size. 
+ * - The post is a square.
+ * - If there is a photo, then the message component height is constrained.
+ * - Message does not expand, it will go to the popup if clicked.
+ * 
+ * Mobile view:
+ * - Spans full width.
+ * - The image is a square.
+ * - If the `...See More` button is clicked, the message will expand.
  * 
  * @returns A post. 
  */
@@ -33,7 +46,7 @@ export const Post: React.FC<PostProps> = React.memo(({post, style}) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const nameRef = useRef<HTMLDivElement>(null);
   const messageRef = useRef<HTMLDivElement>(null);
-  const [width, setWidth] = useState<number>(0);
+  const [wrapperWidth, setWrapperWidth] = useState<number>(0);
   const [nameHeight, setNameHeight] = useState<number>(0);
   const [messageHeight, setMessageHeight] = useState<number>(0);
 
@@ -47,13 +60,14 @@ export const Post: React.FC<PostProps> = React.memo(({post, style}) => {
     variant: 'bodyWrapper',
     color: 'text.primary',
     borderRadius: '4px',
-    height: ['auto', expand ? 'auto' : width],
+    height: ['auto', expand ? 'auto' : wrapperWidth],
     overflow: 'hidden',
     boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.25)',
     bg: 'cardBg',
     '&:hover': {
       cursor: 'pointer',
     },
+    maxHeight: expand ? 'auto' : 800,
   };
 
 
@@ -61,7 +75,7 @@ export const Post: React.FC<PostProps> = React.memo(({post, style}) => {
     objectFit: 'cover',
     display: 'block',
     width: ['100%'], 
-    height: [width, width-nameHeight-messageHeight],
+    height: [wrapperWidth, wrapperWidth-nameHeight-messageHeight],
   };
 
   const nameStyle: SxStyleProp = {
@@ -78,7 +92,7 @@ export const Post: React.FC<PostProps> = React.memo(({post, style}) => {
     borderColor: 'cardBg',
     fontSize: 'small',
     bg: 'cardBg',
-    maxHeight: [expand ? 'auto' : (photo ? '3.5em' : width-nameHeight), photo ? '3.5em' : width-nameHeight],
+    maxHeight: [expand ? 'auto' : (photo ? '3.5em' : wrapperWidth-nameHeight), photo ? '3.5em' : wrapperWidth-nameHeight],
     overflow: 'hidden',
     position: 'relative',
   };
@@ -99,23 +113,34 @@ export const Post: React.FC<PostProps> = React.memo(({post, style}) => {
 
   };
 
-  //TODO: look into less dumb ways to get a square post
+  /**
+   * A resize observer is used to update the following dimension changes whenever the user
+   * resizes the browser/page:  
+   * - `wrapperWidth`, width of the main wrapper component – used for when making sure the entire post
+   * is a square or for making the image a square.  
+   * -  `nameHeight`, height of the component that displays the name – used for computing
+   * the available space left when constraining the post to a square.  
+   * - `messageHeight`, height of the component that displays the message – used for computing the 
+   * available space for displaying the image if the message is present.
+   */
   useEffect(() => {
-    setWidth(wrapperRef.current.getBoundingClientRect().width);
+    setWrapperWidth(wrapperRef.current.getBoundingClientRect().width);
     const ro = new ResizeObserver((entries) => {
       entries.forEach((entry: ResizeObserverEntry) => {
         const element: Element = entry.target;
 
         switch (element) {
           case wrapperRef.current:
-            setWidth(entry.contentRect.width);
+            setWrapperWidth(entry.contentRect.width);
             break;
           case nameRef.current:
             setNameHeight(element.getBoundingClientRect().height);
             break;
           case messageRef.current:
             setMessageHeight(element.getBoundingClientRect().height);
-            if (element.scrollHeight > element.clientHeight) {
+            if (element.scrollHeight > element.getBoundingClientRect().height) {
+              //TODO: fix this bug of overflow detection
+              console.log(element.scrollHeight, element.getBoundingClientRect().height);
               setOverflow(true);
             }
             break;

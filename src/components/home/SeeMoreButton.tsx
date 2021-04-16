@@ -10,9 +10,9 @@ interface SeeMoreProps {
 }
 
 /**
+ * A button that disappears if clicked (on mobile view).
  * 
- * 
- * 
+ * You can pass in an `expand` function that executes when the button is clicked.
  * 
  * @returns A see more button. 
  */
@@ -22,6 +22,7 @@ export const SeeMoreButton: React.FC<SeeMoreProps> = ({expand: customExpand, sty
 
   const wrapperStyle: SxStyleProp = {
     position: 'absolute',
+    //TODO: think of better ways to implement this button
     display: [visible ? 'block' : 'none', 'block'],
     right: 0,
     bottom: 0,

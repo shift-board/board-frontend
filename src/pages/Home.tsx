@@ -1,15 +1,9 @@
 /** @jsx jsx */
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {jsx, SxStyleProp} from 'theme-ui';
 
 import {IPost, Post} from '../components/home/Post';
-
-
-interface Board {
-  title: string;
-  description: string;
-  bgImage: string;
-}
+import { BoardContext, IBoardContext } from '../utils/context';
 
 
 /**
@@ -31,11 +25,28 @@ interface Board {
  * @returns The home page. 
  */
 export const Home: React.FC = () => {
+  //the board
+  const board = useContext<IBoardContext>(BoardContext);
+
+  
   const [posts, setPosts] = useState<IPost[]>([]);
 
   
 
   // TODO: get data from server
+
+  /**
+   * This uses to `fetch` API to request more posts from the server.  
+   * This is used to ensure that the server can dynamically load posts upon request and
+   * not load in everything at once.
+   * 
+   * For example, if the user wishes to load 30 more posts after seeing 50 posts,
+   * this will be `getMorePosts(50, 30)`. 
+   * This is zero-based index with lower bound (the index) inclusive. 
+   * 
+   * @param index The index to get posts from.
+   * @param amount The amount of posts to get.
+   */
   const getMorePosts = (index: number, amount: number) => {
     const newPosts: IPost[] = [
       {
@@ -74,12 +85,7 @@ ur such an amazing person and an amazing boyfriend (ur mine >:)) that is just to
     setPosts(posts => [...posts, ...newPosts]);
   };
 
-  //TODO: get these from server
-  const board: Board = {
-    title: 'Zhang Xian Kai',
-    description: 'To my coolest grandpa',
-    bgImage: 'https://images.unsplash.com/photo-1528289504374-36139e80ef6f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80',
-  };
+  
 
   //TODO: configure this to load in more posts once the user scrolls down
   useEffect(() => {
@@ -87,7 +93,6 @@ ur such an amazing person and an amazing boyfriend (ur mine >:)) that is just to
   }, []);
 
 
-  
 
   // STYLES
 
@@ -125,9 +130,16 @@ ur such an amazing person and an amazing boyfriend (ur mine >:)) that is just to
     width: ['100%', '48%', '30%'],
   };
 
+
   // COMPONENTS
 
-  const getPosts = () => {
+  /**
+   * Convert the posts information got from server into actual `Post` components.
+   * 
+   * @returns An array of `Post` components.
+   */
+  const getPostComponents = () => {
+    //TODO: look into memoization and see if this is necessary
     return posts.map(post => 
       <Post 
         post={post}
@@ -143,7 +155,7 @@ ur such an amazing person and an amazing boyfriend (ur mine >:)) that is just to
         <div sx={titleStyle}>{board.title}</div>
         <div sx={descriptionStyle}>{board.description}</div>
       </div>
-      <div sx={postWrapperStyle}>{getPosts()}</div>
+      <div sx={postWrapperStyle}>{getPostComponents()}</div>
     </div>
   );
 };

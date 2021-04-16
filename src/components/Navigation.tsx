@@ -23,7 +23,7 @@ export const Navigation: React.FC = () => {
   // TODO: load the board's name from the server 
   const boardName = 'HOME';
 
-
+  
 
   // The style of the navbar's main wrapper.
   const wrapperStyle: SxStyleProp = {
@@ -60,7 +60,8 @@ export const Navigation: React.FC = () => {
     order: 1,
   };
 
-  // The other navbar items.
+  // The other navbar items excluding the home button.
+  //TODO: figure out the necessity of `useMemo` here
   const navItems = useMemo(() => {
     const addStyle: SxStyleProp = {
       fontSize: 'large',
