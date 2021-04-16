@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {jsx, SxStyleProp} from 'theme-ui';
 import {AiOutlineExpandAlt} from 'react-icons/ai';
+import { SeeMoreButton } from './SeeMoreButton';
 
 export interface IPost {
   name: string;
@@ -14,7 +15,7 @@ export interface IPost {
 
 interface PostProps {
   post: IPost;
-  extraStyling: SxStyleProp;
+  style?: SxStyleProp;
 }
 
 /**
@@ -24,7 +25,7 @@ interface PostProps {
  * 
  * @returns A post. 
  */
-export const Post: React.FC<PostProps> = React.memo(({post, extraStyling}) => {
+export const Post: React.FC<PostProps> = React.memo(({post, style}) => {
   //TODO: figure out performance with React.memo and without React.memo
 
   const {name, message, photo} = post;
@@ -35,18 +36,24 @@ export const Post: React.FC<PostProps> = React.memo(({post, extraStyling}) => {
   const [width, setWidth] = useState<number>(0);
   const [nameHeight, setNameHeight] = useState<number>(0);
   const [messageHeight, setMessageHeight] = useState<number>(0);
+
+  const [overflow, setOverflow] = useState<boolean>(false);
+  const [expand, setExpand] = useState<boolean>(false);
   
 
   // STYLES
-  
+
   const wrapperStyle: SxStyleProp = {
     variant: 'bodyWrapper',
     color: 'text.primary',
     borderRadius: '4px',
-    height: ['auto', width],
+    height: ['auto', expand ? 'auto' : width],
     overflow: 'hidden',
     boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.25)',
     bg: 'cardBg',
+    '&:hover': {
+      cursor: 'pointer',
+    },
   };
 
 
@@ -58,7 +65,7 @@ export const Post: React.FC<PostProps> = React.memo(({post, extraStyling}) => {
   };
 
   const nameStyle: SxStyleProp = {
-    padding: '0.5em',
+    padding: photo ? '0.5em' : '1em',
     fontSize: 'medium',
     bg: 'cardBg',
     display: 'flex',
@@ -66,21 +73,29 @@ export const Post: React.FC<PostProps> = React.memo(({post, extraStyling}) => {
   };
 
   const messageStyle: SxStyleProp = {
-    padding: ['1em', '0.3em'],
+    px: photo ? '0.3em' : '1em',
+    borderBottom: '0.3em solid',
+    borderColor: 'cardBg',
     fontSize: 'small',
     bg: 'cardBg',
+    maxHeight: [expand ? 'auto' : (photo ? '3.5em' : width-nameHeight), photo ? '3.5em' : width-nameHeight],
+    overflow: 'hidden',
+    position: 'relative',
   };
 
   const iconStyle: SxStyleProp = {
     fontSize: 'larger',
-    '&:hover': {
-      cursor: 'pointer',
-      opacity: 0.8,
-    },
+    display: ['none', 'block'],
+  };
+
+  const expandButtonStyle: SxStyleProp = {
+    bg: 'cardBg',
+    right: photo ? '0.3em' : '1em', 
+    bottom: 0,
   };
 
   //TODO: make the expanded view
-  const expandPost = (event: React.MouseEvent<SVGElement, MouseEvent>) => {
+  const popup = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
 
   };
 
@@ -89,16 +104,20 @@ export const Post: React.FC<PostProps> = React.memo(({post, extraStyling}) => {
     setWidth(wrapperRef.current.getBoundingClientRect().width);
     const ro = new ResizeObserver((entries) => {
       entries.forEach((entry: ResizeObserverEntry) => {
+        const element: Element = entry.target;
 
-        switch (entry.target) {
+        switch (element) {
           case wrapperRef.current:
             setWidth(entry.contentRect.width);
             break;
           case nameRef.current:
-            setNameHeight(entry.target.getBoundingClientRect().height);
+            setNameHeight(element.getBoundingClientRect().height);
             break;
           case messageRef.current:
-            setMessageHeight(entry.target.getBoundingClientRect().height);
+            setMessageHeight(element.getBoundingClientRect().height);
+            if (element.scrollHeight > element.clientHeight) {
+              setOverflow(true);
+            }
             break;
           default:
             throw new Error('unregistered element');
@@ -116,13 +135,18 @@ export const Post: React.FC<PostProps> = React.memo(({post, extraStyling}) => {
 
   
   return (
-    <div sx={{...wrapperStyle, ...extraStyling}} ref={wrapperRef}>
+    <div sx={{...wrapperStyle, ...style}} ref={wrapperRef} onClick={popup}>
       <div sx={nameStyle} ref={nameRef}>
         {name}
-        <AiOutlineExpandAlt sx={iconStyle} onClick={expandPost}/>
+        <AiOutlineExpandAlt sx={iconStyle} />
       </div>
       {photo ? <img sx={imageStyle} src={photo.url} alt={photo.name}/> : undefined}
-      {message ? <div sx={messageStyle} ref={messageRef}>{message}</div> : undefined}
+      {message ? 
+        <div sx={messageStyle} ref={messageRef}>
+          {message}
+          {overflow ? <SeeMoreButton expand={() => setExpand(true)} style={expandButtonStyle}/> : undefined}
+        </div> 
+        : undefined}
     </div>
   );
 });

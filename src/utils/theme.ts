@@ -14,6 +14,7 @@ export const theme = {
   },
   colors: {
     primary: '#323657',
+    secondary: '#828BD7',
     accent: '#EE923D',
     contrast: '#FFFFFF',
     overlay: '#EDEDED',

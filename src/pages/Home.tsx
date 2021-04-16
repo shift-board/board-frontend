@@ -131,7 +131,7 @@ ur such an amazing person and an amazing boyfriend (ur mine >:)) that is just to
     return posts.map(post => 
       <Post 
         post={post}
-        extraStyling={postStyle}
+        style={postStyle}
       />
     );
   };
