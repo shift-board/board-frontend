@@ -7,7 +7,7 @@ import WebFont from 'webfontloader';
 
 WebFont.load({
   google: {
-    families: ['Architects Daughter', 'Open Sans:400', 'Rowdies:300,400']
+    families: ['Architects Daughter', 'Open Sans:400', 'Open Sans:wght@700', 'Rowdies:300,400']
   },
 });
 
