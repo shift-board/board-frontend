@@ -3,15 +3,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import {jsx, SxStyleProp} from 'theme-ui';
 import {AiOutlineExpandAlt} from 'react-icons/ai';
 import { SeeMoreButton } from './SeeMoreButton';
+import { IPost } from '../../utils/interface';
 
-export interface IPost {
-  name: string;
-  message: string;
-  photo: {
-    url: string;
-    name: string;
-  };
-}
+
 
 interface PostProps {
   post: IPost;
@@ -43,14 +37,26 @@ export const Post: React.FC<PostProps> = React.memo(({post, style}) => {
 
   const {name, message, photo} = post;
 
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const nameRef = useRef<HTMLDivElement>(null);
-  const messageRef = useRef<HTMLDivElement>(null);
+  /**
+   * `wrapperWidth`, width of the main wrapper component – used for when making sure the entire post
+   * is a square or for making the image a square.  
+   * `nameHeight`, height of the component that displays the name – used for computing
+   * the available space left when constraining the post to a square.  
+   * `messageHeight`, height of the component that displays the message – used for computing the 
+   * available space for displaying the image if the message is present.
+   * 
+   * The refs refers to its corresponding components.
+   */
   const [wrapperWidth, setWrapperWidth] = useState<number>(0);
   const [nameHeight, setNameHeight] = useState<number>(0);
   const [messageHeight, setMessageHeight] = useState<number>(0);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const nameRef = useRef<HTMLDivElement>(null);
+  const messageRef = useRef<HTMLDivElement>(null);
 
+  // Whether or not the message overflows the message component.
   const [overflow, setOverflow] = useState<boolean>(false);
+  // Whether or not the message is expanded.
   const [expand, setExpand] = useState<boolean>(false);
   
 
@@ -147,9 +153,7 @@ export const Post: React.FC<PostProps> = React.memo(({post, style}) => {
           default:
             console.error('unregistered element');
         }
-
       });
-      
     });
 
     ro.observe(wrapperRef.current);
