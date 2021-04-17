@@ -25,10 +25,13 @@ import { BoardContext, IBoardContext } from '../utils/context';
  * @returns The home page. 
  */
 export const Home: React.FC = () => {
-  //the board
+
   const board = useContext<IBoardContext>(BoardContext);
+  // The posts (information) loaded from the server.
   const [posts, setPosts] = useState<IPost[]>([]);
+  // Whether or not all the board posts are loaded.
   const [fullyLoaded, setFullyLoaded] = useState<boolean>(false);
+  // The index at which to request the posts at, it'll be more clear as you read through the functions.
   const [index, setIndex] = useState<number>(0);
 
   
