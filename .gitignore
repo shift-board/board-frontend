@@ -21,3 +21,6 @@ react-app-env.d.ts
 
 # Others
 /dev_build
+
+# VSCode config
+/.vscode
