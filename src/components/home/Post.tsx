@@ -146,12 +146,12 @@ export const Post: React.FC<PostProps> = React.memo(({post, style}) => {
             setMessageHeight(element.getBoundingClientRect().height);
             if (element.scrollHeight > element.getBoundingClientRect().height) {
               //TODO: fix this bug of overflow detection
-              console.log(element.scrollHeight, element.getBoundingClientRect().height);
+              console.log('FIX THIS BUG', element.scrollHeight, element.getBoundingClientRect().height);
               setOverflow(true);
             }
             break;
           default:
-            throw new Error('unregistered element');
+            console.error('unregistered element');
         }
       });
     });

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import {jsx, SxStyleProp} from 'theme-ui';
 import {Link} from 'react-router-dom';
 import {BsPlusCircleFill} from 'react-icons/bs';
@@ -37,6 +37,7 @@ export const Navigation: React.FC = () => {
     position: 'fixed',
     top: [undefined, 0],
     bottom: [0, undefined],
+    zIndex: 10,
   };
 
   // The style of one of the nav items.
