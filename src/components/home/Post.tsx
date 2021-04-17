@@ -5,6 +5,8 @@ import {AiOutlineExpandAlt} from 'react-icons/ai';
 import { SeeMoreButton } from './SeeMoreButton';
 import { IPost } from '../../utils/interface';
 
+import Popup from './Popup'
+
 
 
 interface PostProps {
@@ -34,6 +36,9 @@ interface PostProps {
  */
 export const Post: React.FC<PostProps> = React.memo(({post, style}) => {
   //TODO: figure out performance with React.memo and without React.memo
+
+  // Determines whether the popup should be shown or not.
+  const [showPopup, setShowPopup] = useState<boolean>(false);
 
   const {name, message, photo} = post;
 
@@ -114,11 +119,6 @@ export const Post: React.FC<PostProps> = React.memo(({post, style}) => {
     bottom: 0,
   };
 
-  //TODO: make the expanded view
-  const popup = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-
-  };
-
   /**
    * A resize observer is used to update the following dimension changes whenever the user
    * resizes the browser/page:  
@@ -162,20 +162,37 @@ export const Post: React.FC<PostProps> = React.memo(({post, style}) => {
     return () => ro.disconnect();
   }, [nameRef.current, messageRef.current]);
 
-  
+  /**
+   * Displays the details of this post in a popup.
+   */
+  const popup = () => {
+    setShowPopup(true);
+  };
+
+  /**
+   * Closes the shown popup, if any.
+   */
+   const closePopup = (): void => {
+    setShowPopup(false);
+  }
+
   return (
-    <div sx={{...wrapperStyle, ...style}} ref={wrapperRef} onClick={popup}>
-      <div sx={nameStyle} ref={nameRef}>
-        {name}
-        <AiOutlineExpandAlt sx={iconStyle} />
+    <React.Fragment>
+      {showPopup ? <Popup post={post} closeHandler={closePopup} /> : undefined}
+
+      <div sx={{...wrapperStyle, ...style}} ref={wrapperRef}>
+        <div sx={nameStyle} ref={nameRef}>
+          {name}
+          {photo ? <AiOutlineExpandAlt sx={iconStyle} onClick={popup} /> : undefined}
+        </div>
+        {photo ? <img sx={imageStyle} src={photo.url} alt={photo.name} onClick={popup} /> : undefined}
+        {message ? 
+          <div sx={messageStyle} ref={messageRef}>
+            {message}
+            {overflow ? <SeeMoreButton expand={() => setExpand(true)} style={expandButtonStyle}/> : undefined}
+          </div> 
+          : undefined}
       </div>
-      {photo ? <img sx={imageStyle} src={photo.url} alt={photo.name}/> : undefined}
-      {message ? 
-        <div sx={messageStyle} ref={messageRef}>
-          {message}
-          {overflow ? <SeeMoreButton expand={() => setExpand(true)} style={expandButtonStyle}/> : undefined}
-        </div> 
-        : undefined}
-    </div>
+    </React.Fragment>
   );
 });

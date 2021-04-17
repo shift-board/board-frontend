@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import React from 'react';
+import { RiCloseCircleLine } from 'react-icons/ri';
 import { jsx, SxStyleProp } from 'theme-ui';
 
 import { IPost } from '../../utils/interface';
-import { RiCloseCircleLine } from 'react-icons/ri';
 
 export interface PopupProps {
   /** The post details. */
@@ -18,6 +18,11 @@ export interface PopupProps {
  * This popup will occur once a post is clicked, and contains the full
  * message, the author's name, and the picture in its original
  * aspect ratio.
+ * 
+ * A popup can only be for posts that have an image. If a popup is formed
+ * from a post that has no image, no popup will show.
+ * 
+ * Clicking the X button or the borders of the popup will close the popup.
  * 
  * Desktop view:
  *  - Spans the entire page
@@ -35,10 +40,13 @@ const Popup: React.FC<PopupProps> = ({post, closeHandler}) => {
 
   const popupDiv: SxStyleProp = {
     position: 'fixed',
+    margin: 0,
+    padding: 0,
     display: 'flex',
     flexDirection: 'row',
     backgroundColor: 'popup.popupBg',
-    top: '0%',
+    top: 0,
+    left: 0,
     zIndex: 1000,
   }
 
@@ -131,14 +139,20 @@ const Popup: React.FC<PopupProps> = ({post, closeHandler}) => {
     evt.stopPropagation();
   }
 
+  // In the event that this popup is created somehow with no photo, generate
+  // empty element instead of throwing an error.
+  if (!photo) {
+    return <React.Fragment></React.Fragment>
+  }
+
   return (
     <div sx={popupDiv}>
       <div sx={photoRegionDiv} onClick={closeHandler}>
         <div sx={borderStyle}>
           <RiCloseCircleLine color='white' size={30} sx={returnButtonStyle} onClick={closeHandler}/>
         </div>
-        <div sx={photoContainerStyle} onClick={consumeMouseInteraction}> 
-          <img src={photo.url} alt={photo.name} sx={photoStyle} />
+        <div sx={photoContainerStyle}> 
+          <img src={photo.url} alt={photo.name} sx={photoStyle} onClick={consumeMouseInteraction} />
         </div>
         <div sx={borderStyle} />
       </div>
