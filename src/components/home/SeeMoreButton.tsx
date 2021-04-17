@@ -4,19 +4,18 @@ import {jsx, SxStyleProp} from 'theme-ui';
 
 
 
-interface SeeMoreProps {
+interface SeeMoreButtonProps {
   expand: () => void;
   style?: SxStyleProp;
 }
 
 /**
- * A button that disappears if clicked (on mobile view).
- * 
- * You can pass in an `expand` function that executes when the button is clicked.
- * 
+ * A button that displays the text `...See More`, expands (custom function that the user
+ * passes in), and disappears when clicked.
+ *  
  * @returns A see more button. 
  */
-export const SeeMoreButton: React.FC<SeeMoreProps> = ({expand: customExpand, style}) => {
+export const SeeMoreButton: React.FC<SeeMoreButtonProps> = ({expand: customExpand, style}) => {
 
   const [visible, setVisible] = useState<boolean>(true);
 

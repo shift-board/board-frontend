@@ -1,5 +1,6 @@
 /**
  * The theme used throughout the app.
+ * Visit https://theme-ui.com/theme-spec for more info.
  * 
  * For example:
  * ```

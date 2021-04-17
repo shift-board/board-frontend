@@ -36,15 +36,15 @@ export const Home: React.FC = () => {
   // TODO: get data from server
 
   /**
-   * This uses to `fetch` API to request more posts from the server.  
+   * This uses the `fetch` API to request more posts from the server.  
    * This is used to ensure that the server can dynamically load posts upon request and
    * not load in everything at once.
    * 
    * For example, if the user wishes to load 30 more posts after seeing 50 posts,
    * this will be `getMorePosts(50, 30)`. 
-   * This is zero-based index with lower bound (the index) inclusive. 
+   * This is zero-based index inclusively (meaning that index 50 is included in the result). 
    * 
-   * @param index The index to get posts from.
+   * @param index The offset index to get posts from.
    * @param amount The amount of posts to get.
    */
   const getMorePosts = (index: number, amount: number) => {
