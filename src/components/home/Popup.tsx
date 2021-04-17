@@ -59,12 +59,12 @@ const Popup: React.FC<PopupProps> = ({post, closeHandler}) => {
     px: '2%',
     py: '2%',
     backgroundColor: 'popup.textBg',
-    visibility: ['collapse', 'visible']
+    visibility: ['collapse', 'visible'],
   }
 
   const authorTextStyle: SxStyleProp = {
-    fontSize: 'fontSizes.medium',
-    fontFamily: 'fonts.body',
+    fontSize: 'medium',
+    fontFamily: 'body',
   }
 
   const lineStyle: SxStyleProp = {
@@ -73,6 +73,19 @@ const Popup: React.FC<PopupProps> = ({post, closeHandler}) => {
     width: '100%',
     margin: 'auto',
     mb: '7%'
+  }
+
+  const textBoxStyle: SxStyleProp = {
+    overflowY: 'auto',
+    width: '100%',    
+    maxHeight: '85%',
+    '&::-webkit-scrollbar': {
+      width: '0.5em'
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: 'rgba(0, 0, 0, 0.05)',
+      outline: '1px solid slategrey'
+    }
   }
 
   const borderStyle: SxStyleProp = {
@@ -102,7 +115,6 @@ const Popup: React.FC<PopupProps> = ({post, closeHandler}) => {
 
   const returnButtonStyle: SxStyleProp = {
     my: 'auto',
-    border: '2px solid green',
     ml: '1%',
     color: 'white'
   }
@@ -126,14 +138,16 @@ const Popup: React.FC<PopupProps> = ({post, closeHandler}) => {
           <RiCloseCircleLine color='white' size={30} sx={returnButtonStyle} onClick={closeHandler}/>
         </div>
         <div sx={photoContainerStyle} onClick={consumeMouseInteraction}> 
-          <img src={photo.url} alt="" sx={photoStyle} />
+          <img src={photo.url} alt={photo.name} sx={photoStyle} />
         </div>
         <div sx={borderStyle} />
       </div>
       <div sx={textRegionDiv}>
         <h3 sx={authorTextStyle}>{name}</h3>
         <div sx={lineStyle} />
-        <p>{message}</p>
+        <div sx={textBoxStyle}>
+          <p>{message}</p>
+        </div>
       </div>
     </div>
   );
