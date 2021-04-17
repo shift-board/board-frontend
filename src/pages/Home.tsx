@@ -27,9 +27,9 @@ import { BoardContext, IBoardContext } from '../utils/context';
 export const Home: React.FC = () => {
   //the board
   const board = useContext<IBoardContext>(BoardContext);
-
-  
   const [posts, setPosts] = useState<IPost[]>([]);
+  const [fullyLoaded, setFullyLoaded] = useState<boolean>(false);
+  const [index, setIndex] = useState<number>(0);
 
   
 
@@ -41,11 +41,12 @@ export const Home: React.FC = () => {
    * not load in everything at once.
    * 
    * For example, if the user wishes to load 30 more posts after seeing 50 posts,
-   * this will be `getMorePosts(50, 30)`. 
+   * this will be `getPosts(50, 30)`. 
    * This is zero-based index with lower bound (the index) inclusive. 
    * 
    * @param index The index to get posts from.
    * @param amount The amount of posts to get.
+   * @return The newly retrieved posts.
    */
   const getMorePosts = (index: number, amount: number) => {
     const newPosts: IPost[] = [
@@ -82,16 +83,42 @@ ur such an amazing person and an amazing boyfriend (ur mine >:)) that is just to
         photo: null,
       },
     ];
+    return newPosts;
+  };
+
+
+  /**
+   * Loads 30 more posts from the server.
+   */
+  const loadMorePosts = () => {
+    const amount = 30; // To test infinite scrolling, change this to like 2 (getMorePost returns 3 posts right now)
+    const newPosts = getMorePosts(index, amount);
+    if (newPosts.length < amount) {
+      setFullyLoaded(true);
+    }
+    setIndex(index => index+amount);
     setPosts(posts => [...posts, ...newPosts]);
   };
 
   
 
-  //TODO: configure this to load in more posts once the user scrolls down
-  useEffect(() => {
-    getMorePosts(0, 30);
+  // Initial loading
+  useEffect(() => { 
+    loadMorePosts();
   }, []);
 
+  // Loading more posts
+  useEffect(() => {
+    const handleScroll = () => {
+      if ((window.innerHeight + window.scrollY >= document.body.offsetHeight) && !fullyLoaded) {
+        loadMorePosts();
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [fullyLoaded]);
+
+  
 
 
   // STYLES
