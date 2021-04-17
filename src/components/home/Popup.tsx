@@ -87,11 +87,16 @@ const Popup: React.FC<PopupProps> = ({post, closeHandler}) => {
     height: `${100 - parseInt(borderStyle.height.toString()) * 2}%`,
     width: '100%',
     textAlign: 'center',
+    verticalAlign: 'middle',
+    display: 'flex',
+    justifyContent: 'center'
   }
 
   const photoStyle: SxStyleProp = {
     objectFit: 'contain',
-    height: '100%',
+    maxHeight: '100%',
+    maxWidth: '100%',
+    height: 'auto',
     width: 'auto',
   }
 
