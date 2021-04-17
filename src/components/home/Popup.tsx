@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
+import React, {useEffect} from 'react';
 import { RiCloseCircleLine } from 'react-icons/ri';
 import { jsx, SxStyleProp } from 'theme-ui';
 
@@ -37,6 +37,17 @@ export interface PopupProps {
  */
 const Popup: React.FC<PopupProps> = ({post, closeHandler}) => {
   const {name, message, photo} = post;
+
+  // Prevent the body from scrolling in a popup
+  useEffect(() => {
+    // Haha, get it? Old overflow = oldverflow?
+    const oldverflow = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+    
+    return () => {
+      document.body.style.overflow = oldverflow;
+    };
+  }, [])
 
   const popupDiv: SxStyleProp = {
     position: 'fixed',
