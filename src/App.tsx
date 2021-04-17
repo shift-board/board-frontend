@@ -12,14 +12,13 @@ import {theme} from './utils/theme';
 /**
  * The main app.
  * 
- * This contains all the context providers and routing.
- * 
- * Theme provider: enables the app to use the theme specified in `./utils/theme.ts`.
+ * This contains all the context providers (including the ThemeProvider) and routing.
  * 
  * 
  * Routes:  
  * `/` – the main page containing all the posts.  
- * `/add-post` – the page to add new posts.  
+ * `/add` – the page to add new posts.  
+ * 
  * @returns The app
  */
 export const App: React.FC = () => {
@@ -31,7 +30,7 @@ export const App: React.FC = () => {
         <Navigation />
         <Switch>
           <Route exact path = '/' component={Home} />
-          <Route path='/add-post' component={AddPost} />
+          <Route path='/add' component={AddPost} />
         </Switch>
       </Router>
     </ThemeProvider>
