@@ -15,13 +15,13 @@
     "webfontloader": "^1.6.28"
   },
   "devDependencies": {
-    "typescript": "4.2.4",
     "@types/jest": "^25.2.3",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.5",
     "@types/theme-ui": "^0.3.5",
-    "cra-build-watch": "^3.2.0"
+    "cra-build-watch": "^3.2.0",
+    "typescript": "4.2.4"
   },
   "scripts": {
     "start": "react-scripts start",
