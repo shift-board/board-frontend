@@ -1,10 +1,11 @@
 /**
  * The theme used throughout the app.
+ * Visit https://theme-ui.com/theme-spec for more info.
  * 
  * For example:
  * ```
  * const style: SxStyleProp = {
- *   font: 'body', //will compile into 'Open Sans'
+ *   fontFamily: 'body', //will compile into 'Open Sans'
  * };
  * ```
  */
@@ -14,20 +15,21 @@ export const theme = {
   },
   colors: {
     primary: '#323657',
+    secondary: '#828BD7',
     accent: '#EE923D',
     contrast: '#FFFFFF',
-    overlay: '#F8F8F8',
+    overlay: '#EDEDED',
+    background: '#F0F0F0',
     secondaryOverlay: '#E5E6EF59',
     text: {
       primary: '#000000DE',
       themed: '#323657DE',
       contrast: '#FFFFFFDE',
     },
+    cardBg: '#FFFFFF',
     dropshadow: '#00000040',
   },
   bodyWrapper: {
-    px: '10%',
-    py: '3%',
     mt: [0, '54px'],
     mb: ['54px', 0],
   },
@@ -38,6 +40,7 @@ export const theme = {
     large: 18,
     larger: 20,
     largest: 24,
+    title: 50,
   },
   fontWeight: {
     body: 'normal',

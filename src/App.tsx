@@ -6,6 +6,7 @@ import {jsx, ThemeProvider} from 'theme-ui';
 import { Navigation } from './components/Navigation';
 import { AddPost } from './pages/AddPost';
 import { Home } from './pages/Home';
+import { BoardContext, IBoardContext } from './utils/context';
 
 import {theme} from './utils/theme';
 
@@ -23,17 +24,25 @@ import {theme} from './utils/theme';
  */
 export const App: React.FC = () => {
   
+  //TODO: get these from server
+  const boardContext: IBoardContext = {
+    title: 'Zhang Xian Kai',
+    description: 'To my coolest grandpa',
+    bgImage: 'https://images.unsplash.com/photo-1528289504374-36139e80ef6f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80',
+  };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Router>
-        <Navigation />
-        <Switch>
-          <Route exact path = '/' component={Home} />
-          <Route path='/add' component={AddPost} />
-        </Switch>
-      </Router>
-    </ThemeProvider>
+    <BoardContext.Provider value={boardContext}>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <Navigation />
+          <Switch>
+            <Route exact path = '/' component={Home} />
+            <Route path='/add-post' component={AddPost} />
+          </Switch>
+        </Router>
+      </ThemeProvider>
+    </BoardContext.Provider>
   );
 };
 

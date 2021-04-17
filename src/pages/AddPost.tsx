@@ -15,8 +15,12 @@ import {jsx, SxStyleProp} from 'theme-ui';
  */
 export const AddPost: React.FC = () => {
 
+  const wrapperStyle: SxStyleProp = {
+    variant: 'bodyWrapper',
+  };
+
   return (
-    <div>
+    <div sx={wrapperStyle}>
       This is the add post page.
     </div>
   );
