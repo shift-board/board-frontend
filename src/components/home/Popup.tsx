@@ -3,7 +3,7 @@ import React from 'react';
 import { jsx, SxStyleProp } from 'theme-ui';
 
 import { IPost } from '../../utils/interface';
-import { theme } from '../../utils/theme';
+import { RiCloseCircleLine } from 'react-icons/ri';
 
 export interface PopupProps {
   /** The post details. */
@@ -79,6 +79,8 @@ const Popup: React.FC<PopupProps> = ({post, closeHandler}) => {
     backgroundColor: 'primary',
     width: '100%',
     height: '7%',
+    display: 'flex',
+    flexDirection: 'row'
   }
 
   const photoContainerStyle: SxStyleProp = {
@@ -93,11 +95,32 @@ const Popup: React.FC<PopupProps> = ({post, closeHandler}) => {
     width: 'auto',
   }
 
+  const returnButtonStyle: SxStyleProp = {
+    my: 'auto',
+    border: '2px solid green',
+    ml: '1%',
+    color: 'white'
+  }
+
+  /**
+   * Consumes (stops the propagation of) a mouse event.
+   * 
+   * Nested DOM elements propagate events to parent DOM elements, which can
+   * occasionally be unideal. This method stops the propagation.
+   * 
+   * @param evt The mouse event to be consumed.
+   */
+  const consumeMouseInteraction = (evt: React.MouseEvent<HTMLElement>): void => {
+    evt.stopPropagation();
+  }
+
   return (
     <div sx={popupDiv}>
-      <div sx={photoRegionDiv}>
-        <div sx={borderStyle} />
-        <div sx={photoContainerStyle}> 
+      <div sx={photoRegionDiv} onClick={closeHandler}>
+        <div sx={borderStyle}>
+          <RiCloseCircleLine color='white' size={30} sx={returnButtonStyle} onClick={closeHandler}/>
+        </div>
+        <div sx={photoContainerStyle} onClick={consumeMouseInteraction}> 
           <img src={photo.url} alt="" sx={photoStyle} />
         </div>
         <div sx={borderStyle} />
