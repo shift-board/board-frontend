@@ -44,6 +44,8 @@ const Popup: React.FC<PopupProps> = ({post, closeHandler}) => {
 
   const photoRegionDiv: SxStyleProp = {
     height: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
     width: '65vw',
     ml: 0,
     mr: 'auto',
@@ -72,14 +74,36 @@ const Popup: React.FC<PopupProps> = ({post, closeHandler}) => {
     mb: '7%'
   }
 
+  const borderStyle: SxStyleProp = {
+    backgroundColor: 'primary',
+    width: '100%',
+    height: '7%',
+  }
+
+  const photoContainerStyle: SxStyleProp = {
+    height: `${100 - parseInt(borderStyle.height.toString()) * 2}%`,
+    width: '100%',
+    textAlign: 'center',
+  }
+
+  const photoStyle: SxStyleProp = {
+    objectFit: 'contain',
+    height: '100%',
+    width: 'auto',
+  }
+
   return (
     <div sx={popupDiv}>
       <div sx={photoRegionDiv}>
-
+        <div sx={borderStyle} />
+        <div sx={photoContainerStyle}> 
+          <img src={photo.url} alt="" sx={photoStyle} />
+        </div>
+        <div sx={borderStyle} />
       </div>
       <div sx={textRegionDiv}>
         <h3 sx={authorTextStyle}>{name}</h3>
-        <div sx={lineStyle}></div>
+        <div sx={lineStyle} />
         <p>{message}</p>
       </div>
     </div>
