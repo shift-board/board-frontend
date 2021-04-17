@@ -46,7 +46,7 @@ const Popup: React.FC<PopupProps> = ({post, closeHandler}) => {
     height: '100vh',
     display: 'flex',
     flexDirection: 'column',
-    width: '65vw',
+    width: ['100vw', '65vw'],
     ml: 0,
     mr: 'auto',
   }
@@ -59,6 +59,7 @@ const Popup: React.FC<PopupProps> = ({post, closeHandler}) => {
     px: '2%',
     py: '2%',
     backgroundColor: 'popup.textBg',
+    visibility: ['collapse', 'visible']
   }
 
   const authorTextStyle: SxStyleProp = {
