@@ -43,7 +43,7 @@ export const Home: React.FC = () => {
    * 
    * For example, if the user wishes to load 30 more posts after seeing 50 posts,
    * this will be `getMorePosts(50, 30)`. 
-   * This is zero-based index inclusively (meaning that index 50 is included in the result). 
+   * This is zero-based index inclusively (meaning that index 50, the 51th post, is included in the result).
    * 
    * @param index The offset index to get posts from.
    * @param amount The amount of posts to get.
