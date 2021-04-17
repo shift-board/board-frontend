@@ -3,15 +3,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import {jsx, SxStyleProp} from 'theme-ui';
 import {AiOutlineExpandAlt} from 'react-icons/ai';
 import { SeeMoreButton } from './SeeMoreButton';
+import { IPost } from '../../utils/interface';
 
-export interface IPost {
-  name: string;
-  message: string;
-  photo: {
-    url: string;
-    name: string;
-  };
-}
+
 
 interface PostProps {
   post: IPost;

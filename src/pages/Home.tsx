@@ -2,8 +2,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import {jsx, SxStyleProp} from 'theme-ui';
 
-import {IPost, Post} from '../components/home/Post';
+import { Post } from '../components/home/Post';
 import { BoardContext, IBoardContext } from '../utils/context';
+import { IPost } from '../utils/interface';
 
 
 /**
@@ -25,7 +26,7 @@ import { BoardContext, IBoardContext } from '../utils/context';
  * @returns The home page. 
  */
 export const Home: React.FC = () => {
-  //the board
+  
   const board = useContext<IBoardContext>(BoardContext);
 
   
