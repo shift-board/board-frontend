@@ -2,10 +2,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {jsx, SxStyleProp} from 'theme-ui';
 import {AiOutlineExpandAlt} from 'react-icons/ai';
+
 import { SeeMoreButton } from './SeeMoreButton';
 import { IPost } from '../../utils/interface';
+import { Popup } from './Popup'
 
-import Popup from './Popup'
 
 
 

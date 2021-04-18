@@ -36,7 +36,7 @@ export interface PopupProps {
  * 
  * @returns the popup of a post.
  */
-const Popup: React.FC<PopupProps> = ({post, closeHandler}) => {
+export const Popup: React.FC<PopupProps> = ({post, closeHandler}) => {
   const {name, message, photo} = post;
 
   // Prevent the body from scrolling in a popup
@@ -182,5 +182,3 @@ const Popup: React.FC<PopupProps> = ({post, closeHandler}) => {
     </div>
   );
 }
- 
-export default Popup;
