@@ -3,6 +3,7 @@ import React, {useEffect} from 'react';
 import { RiCloseCircleLine } from 'react-icons/ri';
 import { jsx, SxStyleProp } from 'theme-ui';
 
+import { fadeIn } from '../../utils/animation';
 import { IPost } from '../../utils/interface';
 
 export interface PopupProps {
@@ -59,6 +60,10 @@ const Popup: React.FC<PopupProps> = ({post, closeHandler}) => {
     top: 0,
     left: 0,
     zIndex: 1000,
+
+    '@keyframes fadeIn': fadeIn,
+    animationName: 'fadeIn',
+    animationDuration: '0.25s',
   }
 
   const photoRegionDiv: SxStyleProp = {

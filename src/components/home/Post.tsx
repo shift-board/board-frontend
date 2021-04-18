@@ -165,7 +165,7 @@ export const Post: React.FC<PostProps> = React.memo(({post, style}) => {
   /**
    * Displays the details of this post in a popup.
    */
-  const popup = () => {
+  const popup = (): void => {
     setShowPopup(true);
   };
 
