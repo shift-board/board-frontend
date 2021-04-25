@@ -4,6 +4,7 @@ import {jsx, SxStyleProp} from 'theme-ui';
 
 import { BoardContext, IBoardContext } from '../utils/context';
 import { HEADER_HEIGHT_PX } from '../components/Navigation'
+import { PostPostForm } from '../components/addpost/PostPostForm'
 
 /**
  * This is the page that allows the user to add a new post.
@@ -66,7 +67,7 @@ export const AddPost: React.FC = () => {
     <div sx={wrapperStyle}>
       <div sx={photoStyle} />
       <div sx={formContainerStyle}>
-        {/* FORM COMPONENT GOES HERE */}
+        <PostPostForm />
       </div>
     </div>
   );

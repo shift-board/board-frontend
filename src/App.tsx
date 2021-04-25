@@ -29,6 +29,7 @@ export const App: React.FC = () => {
     title: 'Zhang Xian Kai',
     description: 'To my coolest grandpa',
     bgImage: 'https://images.unsplash.com/photo-1528289504374-36139e80ef6f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80',
+    uuid: 'zhang-xian-kai-325a6d28-f686-4353-b976-bd7168587d95',
   };
 
   return (
