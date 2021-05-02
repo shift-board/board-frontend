@@ -163,30 +163,16 @@ export const Post: React.FC<PostProps> = React.memo(({post, style}) => {
     return () => ro.disconnect();
   }, [nameRef.current, messageRef.current]);
 
-  /**
-   * Displays the details of this post in a popup.
-   */
-  const popup = (): void => {
-    setShowPopup(true);
-  };
-
-  /**
-   * Closes the shown popup, if any.
-   */
-   const closePopup = (): void => {
-    setShowPopup(false);
-  }
-
   return (
     <React.Fragment>
-      {showPopup ? <Popup post={post} closeHandler={closePopup} /> : undefined}
+      {showPopup ? <Popup post={post} closeHandler={() => {setShowPopup(false)}} /> : undefined}
 
       <div sx={{...wrapperStyle, ...style}} ref={wrapperRef}>
         <div sx={nameStyle} ref={nameRef}>
           {name}
-          {photo ? <AiOutlineExpandAlt sx={iconStyle} onClick={popup} /> : undefined}
+          {photo ? <AiOutlineExpandAlt sx={iconStyle} onClick={() => {setShowPopup(true)}} /> : undefined}
         </div>
-        {photo ? <img sx={imageStyle} src={photo.url} alt={photo.name} onClick={popup} /> : undefined}
+        {photo ? <img sx={imageStyle} src={photo.url} alt={photo.name} onClick={() => {setShowPopup(true)}} /> : undefined}
         {message ? 
           <div sx={messageStyle} ref={messageRef}>
             {message}
