@@ -34,9 +34,6 @@ export const Home: React.FC = () => {
   const [fullyLoaded, setFullyLoaded] = useState<boolean>(false);
   // The index at which to request the posts at, it'll be more clear as you read through the functions.
   const [index, setIndex] = useState<number>(0);
-
-  
-
   // TODO: get data from server
 
   /**
@@ -86,6 +83,34 @@ with me and we work things out well. our humours match and we're always on the s
 ur such an amazing person and an amazing boyfriend (ur mine >:)) that is just too rare. i love u and i'll always do so ;)`,
         photo: null,
       },
+      {
+        name: 'sift',
+        message: `hihi shari i guess this is sorta of a response message to your previous
+        passionate declaration of love but in case you haven't figured it out through
+        my various littered comments or this paragraph i too actually love you sosososo much.
+        I didn't actually realize how much i loved you and i sitll cant believe its possible to
+        have feelings of affection this strong towards someone heheh.
+        its just so much fun whispering i love you and seeing you flinch or staring at your cute being
+        absentmindedly when im killing time. look at you always makes me smile so much and im really glad
+        you're so happy as a result :))
+        i really like how you're so go-getting and responsible and serious/charismatic and all leaderlike at times
+        but you always have this sweet and sappy and adorable side to you that i absolutely adore now
+        (although i wasn't good in the past but even then you still stuck with me and made me a better person ahhhh).
+        we work out so well together and we can actually communicate even if we
+        fight and stuff, and we always become sooo lovey after anything. you know be a bit tooo well its almost really
+        scary :p. your compliments make me feel warm and fuzzy inside and want to cherish you moreee.
+        you're such an amazing person and an amazing girlfriend and here's to us sticking together forever! i love you, shari.
+        i really really really love you :)
+        
+        ps... was that a confession???
+        pps... photo unrelated i just wanted to test landscape hehehehe
+        ppps... i hope this message is so long that i get to test scroll
+        pppps... i love u!!!`,
+        photo: {
+          url: 'https://lh3.googleusercontent.com/d/1UYdxzS9q4IMsR6JdE7BDe86fyaUy6aus=w5000-h625?authuser=0',
+          name: 'e'
+        }
+      },
     ];
     return newPosts;
   };
@@ -104,8 +129,6 @@ ur such an amazing person and an amazing boyfriend (ur mine >:)) that is just to
     setPosts(posts => [...posts, ...newPosts]);
   };
 
-  
-
   // Initial loading
   useEffect(() => { 
     loadMorePosts();
@@ -121,9 +144,6 @@ ur such an amazing person and an amazing boyfriend (ur mine >:)) that is just to
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [fullyLoaded]);
-
-  
-
 
   // STYLES
 
@@ -179,9 +199,8 @@ ur such an amazing person and an amazing boyfriend (ur mine >:)) that is just to
     );
   };
 
-
   return (
-    <div sx={wrapperStyle}>
+    <div sx={wrapperStyle}> 
       <div sx={headerStyle}>
         <div sx={titleStyle}>{board.title}</div>
         <div sx={descriptionStyle}>{board.description}</div>

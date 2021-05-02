@@ -26,6 +26,10 @@ export const theme = {
       themed: '#323657DE',
       contrast: '#FFFFFFDE',
     },
+    popup: {
+      textBg: '#FFFFFF',
+      popupBg: '#FFFFFFDE'
+    },
     cardBg: '#FFFFFF',
     dropshadow: '#00000040',
   },
