@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import {jsx, SxStyleProp} from 'theme-ui';
 
 import { BoardContext, IBoardContext } from '../utils/context';
@@ -20,40 +20,18 @@ import { PostPostForm } from '../components/addpost/PostPostForm'
 export const AddPost: React.FC = () => {
   const board = useContext<IBoardContext>(BoardContext);
 
-  const [windowHeight, setWindowHeight] = useState<number>(window.innerHeight)
-
-  /**
-   * Changes this add post page's height.
-   */
-  const adjustHeight = () => {
-    setWindowHeight(window.innerHeight)
-  }
-
-  // TODO: figure out more efficient way of making sure the main body is the
-  // right height.
-  // Account for window resizing so that the page and image eight is correct
-  useEffect(() => {
-    window.addEventListener('resize', adjustHeight)
-
-    return () => {
-      window.removeEventListener('resize', adjustHeight)
-    }
-  }, [])
-
   const wrapperStyle: SxStyleProp = {
-    variant: 'bodyWrapper',
+    pt: [0, HEADER_HEIGHT_PX],
+    pb: [HEADER_HEIGHT_PX, 0],
     overflow: 'hidden',
     display: 'flex',
     flexDirection: 'row',
-
-    // Since the header height is a constant px amount, height should be the
-    // height of the window minus constant
-    height: windowHeight - HEADER_HEIGHT_PX,
+    minHeight: '100vh',
   };
 
   const photoStyle: SxStyleProp = {
     width: '30%',
-    height: '100%',
+    height: 'auto',
     backgroundImage: `linear-gradient(#EDEDED99, #EDEDED99), url(${board.bgImage})`,
     backgroundSize: 'cover',
   }

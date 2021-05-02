@@ -21,6 +21,9 @@ export const PostPostForm: React.FC<PostPostProps> = () => {
   const [message, setMessage] = useState<string>("");
   const [photo, setPhoto] = useState<File>(null);
 
+  /**
+   * Handles the submission of the form. Also makes sure (from the React side) that a post does not have no message or photo.
+   */
   const handleSubmit = (event: React.FormEvent<HTMLButtonElement>) => {
     if (message == "" && photo == null) {
       alert("Either a message or photo must be present!");
