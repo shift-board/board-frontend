@@ -1,3 +1,5 @@
+import { HEADER_HEIGHT_PX } from '../components/Navigation'
+
 /**
  * The theme used throughout the app.
  * Visit https://theme-ui.com/theme-spec for more info.
@@ -30,8 +32,8 @@ export const theme = {
     dropshadow: '#00000040',
   },
   bodyWrapper: {
-    mt: [0, '54px'],
-    mb: ['54px', 0],
+    mt: [0, HEADER_HEIGHT_PX],
+    mb: [HEADER_HEIGHT_PX, 0],
   },
   fontSizes: {
     mini: 10,

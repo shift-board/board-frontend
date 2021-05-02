@@ -4,6 +4,8 @@ import {jsx, SxStyleProp} from 'theme-ui';
 import {Link} from 'react-router-dom';
 import {BsPlusCircleFill} from 'react-icons/bs';
 
+export const HEADER_HEIGHT_PX = 54
+
 /**
  * This is the navigation bar that always stay at the top of the webpage for desktop views.
  * On mobile, it won't stick to the top of the screen, meaning it'll only stay on the top
@@ -27,7 +29,7 @@ export const Navigation: React.FC = () => {
 
   // The style of the navbar's main wrapper.
   const wrapperStyle: SxStyleProp = {
-    height: '54px',
+    height: HEADER_HEIGHT_PX,
     width: '100vw',
     px: '5%',
     color: 'primary',
